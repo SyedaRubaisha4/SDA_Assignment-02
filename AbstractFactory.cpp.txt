@@ -1,0 +1,255 @@
+# include<iostream>
+using namespace std;
+// class representing the doctor
+class Doctor 
+{
+private:
+    int doctorId;
+    string Specialization;
+    double salary;
+public:
+    void prescribeMedication(Patient patient, string dossage, string medication);
+    void  diagnosePatient(Patient patient);
+    Appointment* viewAppointments();
+    void viewBankDetails();
+};
+//assistance
+// Class representing a Time
+struct Time
+{
+    int hours;
+    int minutes;
+
+
+};
+// Class representing a Date
+struct Date {
+
+    int day;
+    int month;
+    int year; 
+};
+//class representing a patient
+class Patient
+{
+private:
+    int patientId;
+    int age;
+    string gender;
+    string medicalHistory;
+public:
+
+    virtual void  addAppointment(Appointment * appointment) = 0;
+    virtual void cancelAppointment(int appointmentId) = 0;
+    virtual void requestPrescription() = 0;
+};
+// class representing a appointment
+class Appointment
+{
+private:
+    int appointmentId;
+    int patientId;
+    int doctorId;
+    Time time;
+    Date date;
+public:
+    void rescheduleAppointmentNewDate(Date newDate,Time newTime);
+    void cancelAppointment();
+
+};
+//class representing an appointment
+class Prescription
+{
+private:
+    int prescriptionId;
+    int patientId;
+    int doctorId;
+    string * medications;
+    string* dosages;
+    string instructions;
+public:
+    void printPrescription();
+    void updatePrescription(string* newMed, string* newDos, string newinstr);
+};
+//class representing reviews
+class Reviews
+{
+private:
+    int ReviewId;
+    string PatientId;
+    string Review;
+
+public:
+    void displayAllReviews();
+        void AddReviews(int faqId);
+};
+//class representing a medical factory
+class MedicalFactory
+{
+public:
+    virtual Doctor* createDoctor() = 0;
+    virtual  Patient* createPatient() = 0;
+    virtual Appointment* createAppointment() = 0;
+    virtual Prescription* createPrescription() = 0;
+    virtual  Department* createDepartment() = 0;
+    virtual  PatientDischargeReport* createDischargeReport() = 0;
+};
+//relationship of medicalfactory with concretefactory
+class ConcreteMedicalFactory : public MedicalFactory
+{
+public:
+    Doctor* createDoctor() override 
+    {
+
+    }
+
+    Patient* createPatient() override 
+    {
+    }
+
+    Appointment* createAppointment() override 
+    {
+    }
+
+    Prescription* createPrescription() override
+    {
+
+    }
+
+    Reviews createReviews();
+};
+//class representing PatientDischargeReport
+class PatientDischargeReport
+{
+private:
+    Time DischargeTime;
+    Date DischargeDate;
+public:
+    void viewDischargeReport();
+};
+
+class Admin
+{
+private:
+    int adminId;
+    double salaryAmount;
+    Patient* patients;
+    Appointment* appointments;
+    static Admin* instance;
+    // Private constructor so that no objects can be created.
+    Admin();
+public:
+    void updateBankDetails();
+    void addAppointment(Appointment appointment);
+    void changeAppointment(int appointmentId);
+    void addPatient(Patient patient);
+    void displayAllStaffInformation();
+    void generateBills(Patient patient);
+    void updatePatient(Patient patient);
+    static Admin* getInstance();
+
+}; 
+class Department
+{
+private:
+    int departmentId;
+    string departementName;
+public:
+    void addDoctor(Doctor doctor);
+    void removeDoctor(int doctorId);
+    void viewDoctors();
+};
+class Room
+{
+private:
+    int roomId;
+    string roomType;
+    bool availability;
+public:
+    bool checkAvailability();
+    void reserveRoom();
+    void releaseRoom();
+
+};
+class Bill
+{
+private:
+    double billAmount();
+    int patientId;
+    bool isPaid();
+public:
+    void getBillDetails();
+
+};
+class FAQs
+{
+private:
+    int faqId;
+    string question;
+    int answer;
+public:
+    void displayFaq();
+    void removefaq(int faqid);
+    void updateItem(int faqId, string question, string answer);
+
+};
+class Inventory
+{
+private:
+    int itemId;
+    string itemName;
+    int quantityAvailable;
+public:
+    void addItem();
+    void removeItem(int itemId);
+    void updateItem(int itemId, int newQuantity);
+};
+class AdminFactory
+{
+public:
+    virtual Admin * createAdmin() = 0;
+    virtual Room * createRoom() = 0;
+    virtual Bill * createBills() = 0;
+    virtual Inventory * createInventory() = 0;
+    virtual FAQs * createFAQs() = 0;
+    virtual Reviews * createReviews() = 0;
+};
+class ConcreteAdminFactory: public AdminFactory
+{
+public:
+    Admin * createAdmin() override
+    {
+
+    }
+    Room  * createRoom() override
+    {
+        
+    }
+    Bill  * createBills() override
+    {
+        
+    }
+    Inventory* createInventory() override
+    {
+       
+    }
+    FAQs * createFAQs() override
+    {
+       
+    }
+    Department  createDepartment();
+    Reviews* createReviews()override
+    {
+
+    }
+   
+  
+
+};
+
+
+
+
+
+
+
